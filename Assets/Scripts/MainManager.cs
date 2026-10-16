@@ -14,32 +14,42 @@ public class MainManager : MonoBehaviour
     public Text ScoreText;
     public Text bestScoreText;
     public GameObject GameOverText;
+    private string namePlayer = Persistence.Instance.namePlayer;
+    private string bestNamePlayer = Persistence.Instance.bestNamePlayer;
 
     private bool m_Started = false;
     private int m_Points;
-    private int b_Points;
+    private int b_Points = Persistence.Instance.bestPoints;
 
     private bool m_GameOver = false;
 
     // MIGRATED: InputAction replaces Input.GetKeyDown(KeyCode.Space)
     private InputAction m_LaunchAction;
+    private InputAction n_LaunchAction;
 
     // MIGRATED: bind the Space key as a button action
     void Awake()
     {
         m_LaunchAction = new InputAction("Launch", InputActionType.Button, "<Keyboard>/space");
+        n_LaunchAction = new InputAction("Menu", InputActionType.Button, "<Keyboard>/escape");
+        
+        b_Points = Persistence.Instance.bestPoints;
+        bestScoreText.text = $"Best Score : {bestNamePlayer} : {b_Points}";
+
     }
 
     // MIGRATED: enable the action while the component is active
     void OnEnable()
     {
         m_LaunchAction.Enable();
+        n_LaunchAction.Enable();
     }
 
     // MIGRATED: disable the action when the component is inactive
     void OnDisable()
     {
         m_LaunchAction.Disable();
+        n_LaunchAction.Disable();
     }
 
     // Start is called before the first frame update
@@ -82,6 +92,10 @@ public class MainManager : MonoBehaviour
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
+            else if (n_LaunchAction.WasPressedThisFrame())
+            {
+                SceneManager.LoadScene(0);
+            }
         }
     }
 
@@ -97,7 +111,11 @@ public class MainManager : MonoBehaviour
         if (b_Points < m_Points)
         {
             b_Points = m_Points;
-            bestScoreText.text = $"Best Score : Name : {b_Points}";
+            bestNamePlayer = namePlayer;
+            bestScoreText.text = $"Best Score : {bestNamePlayer} : {b_Points}";
+            Persistence.Instance.bestPoints = b_Points;
+            Persistence.Instance.bestNamePlayer = bestNamePlayer;
+            Persistence.Instance.SaveScore();
         }
 
         GameOverText.SetActive(true);
