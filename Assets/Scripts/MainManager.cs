@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using UnityEngine.InputSystem; // MIGRATED: New Input System namespace
+using UnityEngine.InputSystem; 
 
 public class MainManager : MonoBehaviour
 {
@@ -23,9 +22,9 @@ public class MainManager : MonoBehaviour
 
     private bool m_GameOver = false;
 
-    // MIGRATED: InputAction replaces Input.GetKeyDown(KeyCode.Space)
-    private InputAction m_LaunchAction;
-    private InputAction n_LaunchAction;
+    // MIGRATED: InputAction replaces Input.GetKeyDown(KeyCode.Space) 
+    private InputAction m_LaunchAction; // Tecla espaço
+    private InputAction n_LaunchAction; // Tecla escape
 
     // MIGRATED: bind the Space key as a button action
     void Awake()

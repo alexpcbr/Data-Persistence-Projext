@@ -26,12 +26,11 @@ public class UIHandler : MonoBehaviour
             // 2. Passa o nome digitado para o Persistence
             Persistence.Instance.namePlayer = nameInputField.text;
             
-            // 3. Salva imediatamente para que o nome fique registrado no JSON
-            //Persistence.Instance.SaveScore();
+           
         }
         else
         {
-            // Opcional: define um nome padrão caso o jogador não digite nada
+            //  define um nome padrão caso o jogador não digite nada
             Persistence.Instance.namePlayer = "Player";
         }
 
